@@ -1,0 +1,59 @@
+#include<Servo.h>
+int tri=9;
+int echo=8;
+int servo=10;
+float distance;
+float duration;
+Servo servoob;
+int Distance()
+{ 
+  
+  digitalWrite(tri,HIGH );  
+  delayMicroseconds(11); 
+  digitalWrite(tri, LOW); 
+  delayMicroseconds(10); 
+ // digitalWrite(9, LOW);
+  duration = pulseIn(echo, HIGH); 
+  distance= (duration/2)/29.1 ;
+  return distance;
+}
+
+void setup()
+{
+ pinMode(tri,OUTPUT);
+ 
+ pinMode(echo,INPUT);
+ 
+ pinMode(servo,OUTPUT);
+ 
+ servoob.attach(servo);
+  
+ Serial.begin(9600);
+
+}
+void loop()
+{
+for(int a=0;a<=180;a++) 
+  {  
+  servoob.write(a);
+  delay(20);
+  distance = Distance();
+ Serial.print("Object found at angle ");
+  Serial.print(a);
+  Serial.print(" And at distance of ");
+  Serial.println(distance);
+  }
+for(int b=180;b>0;b--) 
+  {  
+  servoob.write(b); 
+  delay(20);
+  distance = Distance();
+  Serial.print("Object found at angle ");
+  Serial.print(b);
+  Serial.print(" And at distance of ");
+  Serial.println(distance);
+  }
+
+}
+
+
