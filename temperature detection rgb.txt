@@ -1,0 +1,31 @@
+int sensor=A0;
+int red=13;
+int green=7;
+
+void setup()
+{
+  pinMode(red, OUTPUT);
+  pinMode(green,OUTPUT);
+  Serial.begin(9600);
+  pinMode(sensor,INPUT);
+}
+
+void loop()
+{
+  
+  float reading=analogRead(sensor);
+  float voltage=(reading*5.0)/1024;
+  float tempC = (voltage - 0.5) * 100 ;
+  
+  if((tempC<=0)||(tempC>=38)){
+    digitalWrite(green,LOW);
+     Serial.print(tempC); Serial.println(" degrees C\n");
+    digitalWrite(red,HIGH);}
+    else{
+    digitalWrite(red,LOW);
+       Serial.print(tempC); Serial.println(" degrees C\n");
+    digitalWrite(green,HIGH);}
+    
+  delay(1000);
+  
+}

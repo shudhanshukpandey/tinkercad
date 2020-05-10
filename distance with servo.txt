@@ -1,0 +1,38 @@
+#include<Servo.h>
+Servo servoob;
+int tri=8;
+int echo=7;
+int servo=5;
+int angle=0;
+void setup()
+{
+pinMode(tri,OUTPUT);
+pinMode(servo,OUTPUT);  
+pinMode(echo,INPUT);
+servoob.attach(servo);
+Serial.begin(9600);
+}
+
+void loop()
+{
+  digitalWrite(tri,HIGH);
+  delayMicroseconds(11);
+  digitalWrite(tri,LOW);
+  
+  delayMicroseconds(10);
+  
+  float duration=pulseIn(echo,HIGH);
+  float distance=(duration/2)/29.1;
+  
+  servoob.write(angle);
+  
+  if (distance<100)
+  {
+  digitalWrite(servo,HIGH);
+  }
+  else
+  {
+    digitalWrite(servo,LOW);
+  }
+  
+}

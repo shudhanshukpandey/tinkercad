@@ -1,0 +1,41 @@
+#include<Servo.h>
+
+Servo servoob;
+int ledg=8;
+int led=7;
+int sensor=A0;
+int servo=10;
+int sensorvalue=0;
+
+void setup()
+{
+  pinMode(led, OUTPUT);
+  pinMode(servo, OUTPUT);
+  pinMode(ledg,OUTPUT);
+  servoob.attach(servo);
+ 
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  sensorvalue=analogRead(sensor);
+  servoob.write(0);
+  
+    
+  if(sensorvalue>=300)
+  {
+    Serial.println(sensorvalue);
+    digitalWrite(led,HIGH);
+    digitalWrite(servo,HIGH);
+    digitalWrite(ledg,LOW);
+     }
+    else
+    {
+    digitalWrite(led,LOW);
+    Serial.println(sensorvalue);
+      digitalWrite(servo,LOW);
+      digitalWrite(ledg,HIGH);
+    }
+    
+}
